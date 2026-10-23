@@ -16,8 +16,8 @@ int pressCountA = 0;
 unsigned long lastChangeA = 0;
 const unsigned long DEBOUNCE_TIME = 50;
 
-IRAM_ATTR bool buttonBFlag = false;
-IRAM_ATTR unsigned long lastInterruptB = 0;
+volatile bool buttonBFlag = false;
+volatile unsigned long lastInterruptB = 0;
 int pressCountB = 0;
 
 const int TOUCH_THRESHOLD = 755;
@@ -197,11 +197,11 @@ void loop()
   }
 
   // Button B (interrupt)
-  // if (buttonBFlag == true)
-  // {
-  //   buttonBFlag = false;
-  //   buttonBCallback();
-  // }
+  if (buttonBFlag == true)
+  {
+    buttonBFlag = false;
+    buttonBCallback();
+  }
 
 // Touch sensor (interrupt)
 if (touchFlag == true)
