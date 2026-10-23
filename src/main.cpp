@@ -20,7 +20,7 @@ volatile bool buttonBFlag = false;
 volatile unsigned long lastInterruptB = 0;
 int pressCountB = 0;
 
-const int TOUCH_THRESHOLD = 755;
+const int TOUCH_THRESHOLD = 771;
 
 typedef void (*Callback)();
 Callback buttonACallback;
@@ -173,7 +173,7 @@ void setup()
 
   // Interrupts
   attachInterrupt(digitalPinToInterrupt(BUTTON_B), buttonB_ISR, FALLING);
-  attachInterrupt(TOUCH_PIN, touch_ISR, TOUCH_THRESHOLD);
+  touchAttachInterrupt(TOUCH_PIN, touch_ISR, TOUCH_THRESHOLD);
 
   // Callbacks
   buttonACallback = toggleArmed;
@@ -207,7 +207,7 @@ void loop()
 if (touchFlag == true)
 {
   touchFlag = false;
-  touchAttachInterrupt(TOUCH_PIN, touch_ISR, TOUCH_THRESHOLD);
+  touchCallback();
 }
 
   // Timer
